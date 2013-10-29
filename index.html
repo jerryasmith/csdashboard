@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <title>Jerry's Tacos</title>
+    <meta charset='utf-8'>
+    <link href='stylesheets/bootstrap.min.css' rel='stylesheet' type='text/css'>
+
+    <script src='javascripts/jquery-1.9.1.min.js' type='text/javascript'></script>
+    <script src='javascripts/d3.js' type='text/javascript'></script>
+    <script src='javascripts/crossfilter.js' type='text/javascript'></script>
+    <script src='javascripts/dc.js' type='text/javascript'></script>
+    <script src='javascripts/underscore-min.js' type='text/javascript'></script>
+    <script src='javascripts/bootstrap.min.js' type='text/javascript'></script>
+    <script src='javascripts/moment.min.js' type='text/javascript'></script>
+    <link href='stylesheets/dc.css' rel='stylesheet' type='text/css'>
+    <link href='css/custom.css' rel="stylesheet">
+    <link href="css/menustyle.css" rel="stylesheet" type="text/css" />
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,800' rel='stylesheet' type='text/css'>
+    <!--<link href="css/icomoon/style.css" rel="stylesheet" type="text/css" /> -->
+        <style>
+      body {
+        font-family: 'Open Sans', sans-serif;
+      }
+    </style>
+</head>
+<body>
+
+
+    <div class="block_navigation dark_theme_1">
+        <ul>
+            <li><a href="#"><i class="icon-home icon-large"></i></a></li>
+
+
+            <li><a href="#" class="ert"><i class="icon-time icon-large"></i><span class="main_links_span">+</span></a>
+                <ul id="rangeSelector">
+                    <li><a href="#" data-day-range="7">Last 7 Days</a></li>
+                    <li><a href="#" data-day-range="30">Last 30 Days</a></li>
+                    <li><a href="#" data-day-range="90">Last 90 Days</a></li>
+                    <li><a href="javascript:dc.filterAll(); dc.renderAll();">Reset</a></li>
+                </ul>
+            </li>
+
+
+
+                        <li><a href="#"><i class="icon-envelope icon-large"></i><span class="main_links_span">+</span></a>
+
+                <div class="container_grid_system_2 contact_form">
+                    <div class="colm_2_container">
+                        <form>
+                            <h4>Contact</h4>
+                            <p class="name">Name<em>*</em></p>
+                            <input type="text" class="input_name" />
+                            <p class="email">Email<em>*</em></p>
+                            <input type="text" class="input_email" />
+                            <p class="message">Message<em>*</em></p>
+                            <textarea class="input_message"></textarea>
+                            <input type="submit" value="Send" />
+                        </form>
+                    </div>
+                </div>
+
+
+            </li>
+
+
+            <li><a href="#" class="ert"><i class="icon-user icon-large"></i><span class="main_links_span">+</span></a>
+                <ul>
+                    <li><a href="#">My Account</a></li>
+                    <li><a href="#">Log Out</a></li>
+                </ul>
+            </li>
+
+        </ul>
+
+
+    </div>
+
+
+
+    <!--Navbar Start
+		<div class='navbar navbar-fixed-top'>
+			<div class='navbar-inner'>
+				<div class='container'>
+					<a class="brand" >Jerry's Dashboard <span style="font-size: .6em;">This Is It</span></a>
+				</div>
+			</div>
+		</div>
+		Navbar End-->
+
+
+    <div class='container-narrow'>
+        <h3>Jerry's Taco Diner<br></h3>
+
+
+        <div id="data-count" class='pull-left offset8 muted'>
+            <span class="filter-count"></span> selected of <span class="total-count"></span> records
+        </div>
+
+
+        <div class='row'>
+                <div class='pie-graph span12' id='volume-month-chart'></div>
+                <h4>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </h4>
+        </div>
+
+
+            <div class='row'>
+                <div class='overall span4'>
+                    <h4>Customer Satisfaction Score</h4>
+                    <span id="overall-score-widget" style="font-size: 18em; line-height: 100%;"></span>
+                </div>
+                <div class='pie-graph span7' id='dc-line-chart'></div>
+            </div>
+
+
+
+        <div class='span12'>
+            <br>
+            <br>
+        </div>
+
+
+        <div class='row-fluid'>
+            <div class='pie-graph span3' id='dc-pie-graphQ2'>
+                <h4>Taste</h4>
+            </div>
+            <div class='pie-graph span3' id='dc-pie-graphQ3'>
+                <h4>Temperature</h4>
+            </div>
+            <div class='pie-graph span3' id='dc-pie-graphQ4'>
+                <h4>Speed</h4>
+            </div>
+            <div class='pie-graph span3' id='dc-pie-graphQ5'>
+                <h4>Friendliness</h4>
+            </div>
+        </div>
+
+
+        <div class='span12'>
+            <br>
+            <br>
+        </div>
+
+
+        <div class='row-fluid'>
+            <div class='span6 table-graph'>
+                <h4>Problem Comments</h4>
+                <div style="font-size: .8em;">
+                    <table class='table table-hover dc-data-table table-condensed' id='dc-problem-graph'>
+                        <thead>
+                            <tr class='header'>
+                                <th>Visit Date</th>
+                                <th>Satisfaction</th>
+                                <th>Comment</th>
+
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <div style="margin-top:120px;" class='osat span5 offset1'>
+                <span style="font-size: 18em;" id="problem-percent-widget"></span>
+                <span style="font-size:1em;top:2em;">%</span><br>
+                <div>
+                    <h4 class="text-center">Experienced a Problem</h4>
+                </div>
+            </div>
+        </div>
+
+
+        <h4></h4>
+
+        <div class='row-fluid'>
+            <div class='pie-graph span3' id='day-of-week-chart'>
+                <h4>Day of Week</h4>
+            </div>
+            <div class='pie-graph span3' id='dc-pie-graphQ10'>
+                <h4>Gender</h4>
+            </div>
+            <div class='pie-graph span3' id='dc-pie-graphQ11'>
+                <h4>Age</h4>
+            </div>
+            <div class='pie-graph span3' id='dc-pie-graphQ7'>
+                <h4>Problem</h4>
+            </div>
+        </div>
+
+
+        <div>
+            <br>
+            <br>
+        </div>
+
+
+        <div class='row-fluid'>
+            <div class='span12 table-graph'>
+                <h4>Individual Survey Responses</h4>
+                <br>
+                <div style="font-size: .87em;">
+                    <table class='table table-hover dc-data-table table-condensed' id='dc-table-graph'>
+                        <thead>
+                            <tr class='header'>
+                                <th>Date</th>
+                                <th>Overall Score</th>
+                                <th>Taste</th>
+                                <th>Temperature</th>
+                                <th>Speed</th>
+                                <th>Friendliness</th>
+                                <th>Atmosphere</th>
+                                <th>Problem</th>
+                                <th>Contact</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+    <script src='simple_vis.js' type='text/javascript'></script>
+    <script src='javascripts/jquery-1.9.1.min.js'></script>
+    <script src='javascripts/jquery.backstretch.min.js'></script>
+    <script src='javascripts/custom.js'></script>
+
+</body>
+</html>

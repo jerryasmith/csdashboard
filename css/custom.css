@@ -1,0 +1,27 @@
+/*
+CSS for our 24 Ways example.
+Icons kindly provided by Font Awesome:
+http://fortawesome.github.com/Font-Awesome
+*/
+
+/* Custom container */
+.container-narrow {
+  background: url(../img/cream_dust_transparent.png) repeat 0 0;
+  margin: 0 auto;
+  padding: 30px;
+  max-width: 900px;
+}
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+.letterP4 {    
+  -webkit-transform: rotate(-90deg); 
+     -moz-transform: rotate(-90deg); 
+      -ms-transform: rotate(-90deg); 
+       -o-transform: rotate(-90deg); 
+          transform: rotate(-90deg);
+            color: #000;
+    float: left;
+    vertical-align:top;
+}
